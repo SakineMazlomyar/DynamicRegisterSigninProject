@@ -5,8 +5,9 @@
         <input type='text' name='name'><br>
         <label>Password</label><br>
         <input type='text' name='password'><br>
-        <input type='submit' value='save' name='new-name'>    
+        <input type='submit' value='save' name='new-register'>    
     </form>
+
     
     "
 
