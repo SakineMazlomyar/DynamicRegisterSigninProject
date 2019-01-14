@@ -1,9 +1,10 @@
 <?php 
     return "
-    <form>
+    <form method='post' action='./view/login-code.php' >
         <label>Username</label>
-        <input type='text' username='username'>
-        <input type='submit' value='login' name='login'>    
+        <input type='text' name='username'>
+        <input type='text' name='password'>
+        <input type='submit' value='login' name='login-user'>    
     </form>
     
     "
