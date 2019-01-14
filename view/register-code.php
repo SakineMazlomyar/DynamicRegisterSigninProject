@@ -1,40 +1,34 @@
 
 
 <?php
-$isSubmitedRegister = isset($_POST['new-name']);
 
+$databaseJson = file_get_contents("../database/database.json");
+$databaseConverted = json_decode($databaseJson);
+
+//We initial an array of all users
+$users = array();
+if(!isset($databaseConverted->registers)){
+    $databaseConverted->registers = $users;
+}
+
+
+$isSubmitedRegister = isset($_POST['new-register']);
 if($isSubmitedRegister){
-
-    $databaseJson = file_get_contents("../database/database.json");
-    $databaseConverted = json_decode($databaseJson);
+    $name =  $_POST['name'];
+    $password = $_POST['password'];
+    $oneUser = new stdClass();
+    $oneUser->name = $name;
+    $oneUser->password =  $password;
     
-    //We initial an array of all users
-    $users = array();
-    if(!isset($databaseConverted->registers)){
-        $databaseConverted->registers = $users;
-    
-    }
-    //We prevent similr users before pushing new user
+    //We prevent similr users
     foreach($databaseConverted->registers as $user){
-        if($user->name == $_POST['name'] && $user->password == $_POST['password'])
-        echo "This username and password alreay exist!";
-        return;
+        if( $name == $user->name && $password == $user->password){
+            echo "This username and password alreay exist!";
+            return;
+        }
     }
-    // We check if array registers exist and then we push new user's info
-    if(isset($databaseConverted->registers)){
-        $oneUser = new stdClass();
-        $oneUser->name = $_POST['name'];
-        $oneUser->password = $_POST['password'];
-        array_push($databaseConverted->registers, $oneUser);
-    }
-
-
-
-
-
-
-
-
+   
+    array_push($databaseConverted->registers, $oneUser);
     file_put_contents("../database/database.json", json_encode($databaseConverted));
 
 }
