@@ -19,7 +19,6 @@ if($isSubmitedRegister){
     $oneUser = new stdClass();
     $oneUser->name = $name;
     $oneUser->password =  $password;
-    
     //We prevent similr users
     foreach($databaseConverted->registers as $user){
         if( $name == $user->name && $password == $user->password){
